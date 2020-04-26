@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
 
-      <div v-for="post in posts" class="col-md-4" :key="post.id" >
+      <div v-for="post in allPosts" class="col-md-4" :key="post.id" >
 <!--        <Card :props="post"/>-->
         <nuxt-link :to="{name: 'posts-id', params: { id:post.id } }">
           <div class="card" style="width: 18rem;">
@@ -21,20 +21,29 @@
 <script>
     import axios from 'axios';
     import Card from '~/components/Card';
+   import { mapMutations } from 'vuex';
 
   export default {
       components: {
           Card
       },
+     
       data(){
           return {
               posts:''
           }
-      },
-
-      async asyncData(){
+      }
+      ,computed:{
+        ...mapMutations(['posts']),
+          allPosts(){
+            return this.$store.getters.posts
+          }
+      }
+      ,
+      async fetch({store}){
          let {data}= await axios.get(`https://jsonplaceholder.typicode.com/posts`);
-         return {posts: data}
+         store.dispatch('setPosts',data);
+        //  return {posts: data}
       }
 
   }
