@@ -3,7 +3,7 @@
     <div class="row">
 
       <div v-for="post in allPosts" class="col-md-4" :key="post.id" >
-<!--        <Card :props="post"/>-->
+
         <nuxt-link :to="{name: 'posts-id', params: { id:post.id } }">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="https://www.uoe.co.uk/wp-content/uploads/2018/07/Post-box-1.jpg" alt="Card image cap">
@@ -16,6 +16,7 @@
 
       </div>
     </div>
+    <button class="btn btn-danger" v-scroll-to="'body'">Top</button>
   </div>
 </template>
 <script>
@@ -34,17 +35,17 @@
           }
       }
       ,computed:{
-        ...mapMutations(['posts']),
+   
           allPosts(){
             return this.$store.getters.posts
           }
       }
-      ,
-      async fetch({store}){
-         let {data}= await axios.get(`https://jsonplaceholder.typicode.com/posts`);
-         store.dispatch('setPosts',data);
-        //  return {posts: data}
-      }
+      //,
+      // async fetch({store}){
+      //    let {data}= await axios.get(`https://jsonplaceholder.typicode.com/posts`);
+      //    store.dispatch('setPosts',data);
+      //   //  return {posts: data}
+      // }
 
   }
 </script>

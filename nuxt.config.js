@@ -28,12 +28,20 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  css: [ '@/assets/css/main.css'],
+  transition :{
+    name: 'fade',
+    mode: 'out-in'
+  },
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    "@/plugins/scroll.js",
+    {
+      src:"@/plugins/vselect.js",
+      srr:false
+    }
   ],
   /*
   ** Nuxt.js dev-modules
